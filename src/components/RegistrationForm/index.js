@@ -17,14 +17,22 @@ class RegistrationForm extends Component {
     const {firstName, lastName} = this.state
 
     if (firstName === '' && lastName === '') {
-      this.setState({isLastGiven: true, isFirstGiven: true})
+      console.log(1)
+      this.setState({isLastGiven: true, isFirstGiven: true, isLoggedIn: false})
     } else if (firstName === '' && lastName !== '') {
-      this.setState({isFirstGiven: true})
+      console.log(2)
+      this.setState({isFirstGiven: true, isLastGiven: false, isLoggedIn: false})
     } else if (firstName !== '' && lastName === '') {
-      this.setState({isLastGiven: true})
+      console.log(3)
+      this.setState({isLastGiven: true, isFirstGiven: false, isLoggedIn: false})
     } else {
+      console.log(firstName, lastName)
       this.setState({
         isLoggedIn: true,
+        firstName: '',
+        lastName: '',
+        isFirstGiven: false,
+        isLastGiven: false,
       })
     }
   }
@@ -35,7 +43,7 @@ class RegistrationForm extends Component {
 
   onBlurFirstName = event => {
     if (event.target.value === '') {
-      this.setState({isFirstGiven: true})
+      this.setState({isFirstGiven: true, firstName: ''})
     } else {
       this.setState({isFirstGiven: false, firstName: event.target.value})
     }
@@ -43,7 +51,7 @@ class RegistrationForm extends Component {
 
   onBlurLastName = event => {
     if (event.target.value === '') {
-      this.setState({isLastGiven: true})
+      this.setState({isLastGiven: true, lastName: ''})
     } else {
       this.setState({isLastGiven: false, lastName: event.target.value})
     }
@@ -51,6 +59,7 @@ class RegistrationForm extends Component {
 
   render() {
     const {isLoggedIn, isFirstGiven, isLastGiven} = this.state
+    console.log(isLoggedIn)
     const res1 = isFirstGiven ? 'input-err-el' : ''
     const res2 = isLastGiven ? 'input-err-el' : ''
     const formEl = (
